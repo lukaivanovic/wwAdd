@@ -1,0 +1,51 @@
+[
+    {
+        "id": 0,
+        "name": "Elements",
+        "elements": "./elements.json",
+        "active": true,
+        "display": 0
+    },
+    {
+        "id": 1,
+        "name": "Layouts",
+        "elements": "./elements.json",
+        "active": false,
+        "display": 1
+    },
+    {
+        "id": 2,
+        "name": "Buttons & Labels",
+        "elements": "./elements.json",
+        "active": false,
+        "display": 2
+    },
+    {
+        "id": 3,
+        "name": "Input & Controls",
+        "elements": "./elements.json",
+        "active": false,
+        "display": 2
+    },
+    {
+        "id": 4,
+        "name": "Data Display",
+        "elements": "./elements.json",
+        "active": false,
+        "display": 2
+    },
+    {
+        "id": 5,
+        "name": "Authentication",
+        "elements": "./elements.json",
+        "active": false,
+        "display": 2
+    },
+    {
+        "id": 6,
+        "name": "Landing page",
+        "elements": "./elements.json",
+        "active": false,
+        "display": 2
+    }
+]
