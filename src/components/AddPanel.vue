@@ -1,4 +1,12 @@
 <script setup>
+    import AuthIcon from './icons/AuthIcon.vue'
+    import LayoutIcon from './icons/LayoutIcon.vue'
+    import ButtonsIcon from './icons/ButtonsIcon.vue'
+    import DataIcon from './icons/DataIcon.vue'
+    import ElementsIcon from './icons/ElementsIcon.vue'
+    import InputIcon from './icons/InputIcon.vue'
+    import LandingIcon from './icons/LandingIcon.vue'
+    import Search from './Search.vue'
 </script>
 
 <script>
@@ -10,7 +18,8 @@
             return {
                 currentSection: sectionsInput[0],
                 sections: sectionsInput,
-                elements: elementsInputRaw
+                elements: elementsInputRaw,
+                elementHovered: false
             }
         },
         methods: {
@@ -32,35 +41,65 @@
 </script>
 
 <template>
-    <div class='panel'>
+    <header>
+        <link rel="preconnect" href="https://rsms.me/">
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css">  
+    </header>
+    <div class='panel'
+        @mouseleave="$emit('closePanel')"
+    >
         <div class="small">
+            <Search />
             
-            <!-- <input v-model="text"> -->
             <div
                 v-for="section in sections"
                 :key="section.name"
-                @click="changeCategory(section)"
+                @mouseover="changeCategory(section)"
                 class="item label-sm"
                 :class="section.id === currentSection.id ? 'itemActive' : ''"
             >
+                <ElementsIcon v-if="section.name === 'Elements'"/>
+                <LayoutIcon v-if="section.name === 'Layout'"/>
+                <ButtonsIcon v-if="section.name === 'Buttons & Labels'"/>
+                <InputIcon v-if="section.name === 'Input & Controls'"/>
+                <DataIcon v-if="section.name === 'Data Display'"/>
+                <LandingIcon v-if="section.name === 'Landing page'"/>
+                <AuthIcon v-if="section.name === 'Authentication'"/>
                 {{section.name}}
             </div>
         </div>
 
         <div class="medium">
+            <span class="heading-lg">{{currentSection.name}}</span>
+            
             <div
-                class="elements"
-                :class="{'elementsTwo': currentSection.display === 1, 'elementsOne': currentSection.display === 2}"
+                class="content"
+                v-for="folder in selectedCatElements"
+                :key="folder.folderName"
             >
+                <div class="folder label-sm" v-if="folder.folderName != 'main'">
+                    {{folder.folderName}}
+                </div>
+
                 <div
-                    v-for="element in selectedCatElements"
-                    :key="element.name"
-                    class="element"
-                    :class="{'element-sm': currentSection.display === 0, 'element-md': currentSection.display === 1}"
-                >   
-                    <img class="elementPreview" :src="element.url" />
-                    
-                    <span class="label-sm">{{element.name}}</span>
+                    class="elements"
+                    :class="{'elementsTwo': currentSection.display === 1, 'elementsOne': currentSection.display === 2}"
+                >
+                    <div
+                        v-for="element in folder.elements"
+                        :key="element.name"
+                        class="element"
+                        :class="{'element-sm': currentSection.display === 0, 'element-md': currentSection.display === 1}"
+                        @mouseover="elementHovered = element.name"
+                        @mouseleave="elementHovered = ''"
+                    >   
+                        <img
+                            class="elementPreview" :src="element.url"
+                            :class="elementHovered === element.name ? 'elementHover' : ''"
+                        />
+                        
+                        <span class="body-sm">{{element.name}}</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -83,27 +122,29 @@
         padding: 8px;
         display: flex;
         flex-direction: column;
-        width: 160px;
+        width: 200px;
         border-right: 1px solid var(--bg-secondary);
     }
 
     .medium{
         width: 280px;
         border-right: 1px solid var(--bg-secondary);
-        padding: 12px;
+        padding: 20px 16px;
     }
 
     .item{
         cursor: pointer;
         padding: 0px 8px;
-        height: 32px;
+        height: 40px;
         display: flex;
+        column-gap: 10px;
         width: 100%;
         flex-direction: row;
         align-items: center;
         justify-content: flex-start;
         border-radius: 6px;
         color: var(--content-secondary);
+        margin-bottom: 4px;
     }
 
     .itemActive{
@@ -138,6 +179,7 @@
         padding: 4px;
         display: flex;
         flex-direction: column;
+        row-gap: 4px;
         justify-content: stretch;
         align-items: stretch;
         align-content: center;
@@ -147,6 +189,18 @@
         white-space: nowrap;
         text-overflow: ellipsis;
         text-align: center;
+        cursor: pointer;
+        color: var(--content-secondary);
+    }
+
+    .elementHover{
+        opacity: 0.9;
+        transition: all .4s ease;
+        transform: scale(0.94);
+    }
+
+    .element:hover{
+        color: var(--content-primary);
     }
 
     .element-sm{
@@ -161,7 +215,6 @@
         height: auto;
         border-radius: 4px;
         flex-grow: 1;
-        background-color: var(--bg-tertiary);
     }
 
     .elementImage{
@@ -169,6 +222,24 @@
     }
 
     .element:hover{
-        background-color: var(--bg);
+        background-color: var(--bg-tertiary);
+    }
+
+    .folder{
+        height: 20px;
+        display: flex;
+        column-gap: 10px;
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        border-radius: 6px;
+        color: var(--content-secondary);
+        margin-bottom: 8px;
+        margin-top: 16px;
+    }
+
+    .content{
+        margin-top: 16px
     }
 </style>

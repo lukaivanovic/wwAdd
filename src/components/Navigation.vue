@@ -1,5 +1,5 @@
 <script setup>
-    import { Squares2X2Icon } from '@heroicons/vue/20/solid'
+    import { Bars2Icon } from '@heroicons/vue/20/solid'
     import { PlusIcon } from '@heroicons/vue/20/solid'
     import { DocumentDuplicateIcon } from '@heroicons/vue/20/solid'
     import { CircleStackIcon } from '@heroicons/vue/20/solid'
@@ -13,18 +13,24 @@
 <template>
 
     <div class="nav">
-        
-        <Squares2X2Icon class="icon"/>
-        
-        <NavigatorIcon class="icon"/>
+        <Bars2Icon class="icon"/>
 
-        <PlusIcon class="icon"/>
+        <div class="divider"></div>
+
+        <div class="add" @mouseover="$emit('openPanel')">
+            <PlusIcon class="addIcon"/>
+            <span class="label-sm">Add</span>
+        </div>
+        
+        <div class="divider"></div>
         
         <DocumentDuplicateIcon class="icon"/>
     
         <CircleStackIcon class="icon"/>
     
         <UserGroupIcon class="icon"/>
+
+        <div class="divider"></div>
     
         <PuzzlePieceIcon class="icon"/>
     
@@ -53,9 +59,46 @@
     }
 
     .icon{
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
         color: var(--content-secondary);
         line-height: 0px;
+        cursor: pointer;
+    }
+
+    .icon:hover{
+        color: var(--content-primary);
+    }
+
+    .add{
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-items: center;
+        background-color: var(--bg-secondary);
+        padding-left: 8px;
+        padding-right: 12px;
+        height: 28px;
+        border-radius: 8px;
+        column-gap: 4px;
+    }
+
+    .add:hover{
+        background-color: var(--bg-tertiary);
+    }
+
+    .addIcon{
+        width: 16px;
+        height: 16px;
+        color: var(--content-secondary);
+        line-height: 0px;
+        cursor: pointer;
+    }
+
+    .divider{
+        width: 1px;
+        height: calc(100% - 24px);
+        background-color: var(--bg-secondary);
     }
 </style>

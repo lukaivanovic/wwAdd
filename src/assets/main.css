@@ -23,3 +23,18 @@ a,
   font-size: 12px;
   font-weight: 500;
 }
+
+.body-sm{
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.label-md{
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.heading-lg{
+  font-size: 16px;
+  font-weight: 600;
+}
